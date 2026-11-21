@@ -35,7 +35,7 @@ export default function AboutSection({ data }: { data: AboutContent }) {
       : ({ whileInView: "visible", viewport: { once: true, amount } } as const);
 
   return (
-    <section id="about" className="w-full bg-white py-16 md:py-24 lg:py-28">
+    <section id="about" className="w-full bg-[#F2F0E9] py-16 md:py-24 lg:py-28">
       <div id="approach" className="mx-auto max-w-[1440px] px-6 lg:px-12">
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-16 xl:gap-20">
           {/* Левая колонка: фотография + заголовок (заголовок выровнен по низу плитки, как в макете) */}

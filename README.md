@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Белый кот — сайт ветеринарной клиники
 
-## Getting Started
+Сайт ветеринарной клиники «Белый кот» (Электросталь) на **Next.js 16** (App Router, Turbopack) + **React 19** + **Tailwind CSS 4**.
 
-First, run the development server:
+## Требования
+
+- **Node.js** 20 или новее
+- **npm** (идёт в комплекте с Node.js)
+
+Проверить версии:
+
+```bash
+node -v
+npm -v
+```
+
+## Установка
+
+Установить зависимости (выполняется один раз после клонирования):
+
+```bash
+npm install
+```
+
+## Запуск
+
+### Режим разработки (с горячей перезагрузкой)
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Сайт откроется по адресу: **http://localhost:3000**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Изменения в файлах применяются автоматически, перезапускать не нужно.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Production-сборка и запуск
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+После сборки сайт работает по адресу **http://localhost:3000** в оптимизированном режиме.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Полезные команды
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Команда | Что делает |
+| --- | --- |
+| `npm run dev` | Запускает сервер разработки на `http://localhost:3000` |
+| `npm run build` | Собирает production-версию сайта |
+| `npm run start` | Запускает собранную production-версию (после `npm run build`) |
+| `npm run lint` | Проверяет код линтером (ESLint) |
 
-## Deploy on Vercel
+## Страницы сайта
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Адрес | Описание |
+| --- | --- |
+| `/` | Главная: hero, «Наш подход», отзывы, вопросы, контакты и карта |
+| `/about` | О клинике |
+| `/services` | Услуги и цены |
+| `/specialists` | Врачи (список) |
+| `/specialists/<slug>` | Страница отдельного врача |
+| `/booking` | Запись на приём |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Структура проекта
+
+```
+app/            страницы (App Router)
+components/     переиспользуемые компоненты (шапка, подвал, секции)
+content/        контент сайта (clinic.json)
+lib/            типы и данные (clinic.ts, doctors.ts)
+public/         статические файлы (картинки)
+```
+
+## Где менять контент
+
+- **Тексты, телефоны, адрес, цены, отзывы, FAQ** — `content/clinic.json`
+- **Список врачей** — `lib/doctors.ts`
+- **Услуги и цены** — `app/services/page.tsx`
+- **Картинки** — папка `public/`
+
+## Возможные проблемы
+
+### `npm run build` падает с ошибкой на `/services/[slug]`
+
+Это остаточная страница-заглушка, она не используется. Удалите папку `app/services/[slug]` — сборка пройдёт без ошибок. В режиме разработки (`npm run dev`) эта ошибка не проявляется.
+
+### Предупреждение про `package-lock.json`
+
+Сообщение `Next.js ignored package-lock.json ... outside the current Git repository` — безобидное, на работу не влияет.
+
+## Технологии
+
+- [Next.js 16](https://nextjs.org/docs) — фреймворк (App Router, Turbopack)
+- [React 19](https://react.dev)
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [Framer Motion](https://www.framer.com/motion/) — анимации
+- [Lucide](https://lucide.dev) — иконки

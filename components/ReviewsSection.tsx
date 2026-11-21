@@ -29,10 +29,9 @@ export default function ReviewsSection({ data }: { data: ReviewsContent }) {
   return (
     <section
       id="reviews"
-      className="w-full bg-[#EEF2E6] py-16 md:py-24 lg:py-28"
+      className="w-full bg-[#F2F0E9] py-16 md:py-24 lg:py-28"
     >
       <div className="mx-auto max-w-[1440px] px-6 lg:px-12">
-        {/* Шапка блока */}
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-start">
           <div>
             <motion.span
@@ -41,6 +40,7 @@ export default function ReviewsSection({ data }: { data: ReviewsContent }) {
               initial="hidden"
               {...reveal(0.4)}
               transition={{ duration: 0.5 }}
+              style={data.badge ? undefined : { display: "none" }}
             >
               {data.badge}
             </motion.span>
@@ -72,7 +72,6 @@ export default function ReviewsSection({ data }: { data: ReviewsContent }) {
           </motion.div>
         </div>
 
-        {/* Карточки отзывов */}
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-7">
           {data.items.map((review, index) => {
             return (
@@ -87,7 +86,7 @@ export default function ReviewsSection({ data }: { data: ReviewsContent }) {
                     ? undefined
                     : { y: -4, boxShadow: "0 12px 32px rgba(26, 26, 26, 0.08)" }
                 }
-                className="flex flex-col rounded-[18px] bg-white p-7 transition-colors lg:p-8"
+                className="flex flex-col rounded-[18px] bg-white p-7 transition-colors lg:p-8 shadow-sm"
               >
                 <div className="mb-6 flex gap-0.5" aria-hidden="true">
                   {Array.from({ length: review.rating }).map((_, star) => (
@@ -110,7 +109,6 @@ export default function ReviewsSection({ data }: { data: ReviewsContent }) {
           })}
         </div>
 
-        {/* Подпись под карточками */}
         <p className="mt-10 text-[12px] text-[#8A8E8C]">{data.footer}</p>
       </div>
     </section>
