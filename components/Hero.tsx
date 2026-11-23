@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, MapPin, ShieldCheck, Star } from "lucide-react";
+import { Clock, MapPin, ShieldCheck } from "lucide-react";
 import { getClinicContent } from "@/lib/clinic";
 import { asset } from "@/lib/asset";
 import Container from "@/components/ui/Container";
@@ -72,19 +72,6 @@ export default function Hero() {
                   className="object-cover object-center"
                   priority
                 />
-              </div>
-
-              {/* Плавающая карточка-рейтинг */}
-              <div className="absolute -bottom-6 -left-2 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-[0_18px_40px_-18px_rgba(20,24,26,0.28)] ring-1 ring-black/5 backdrop-blur sm:-left-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sage text-accent-strong">
-                  <Star className="h-5 w-5 fill-accent" strokeWidth={0} aria-hidden="true" />
-                </span>
-                <div>
-                  <div className="text-[15px] font-bold leading-none text-ink">
-                    {clinic.rating.toFixed(1).replace(".", ",")} / 5
-                  </div>
-                  <div className="mt-1 text-[11px] text-ink-muted">Рейтинг на Zoon.ru</div>
-                </div>
               </div>
             </div>
           </Reveal>

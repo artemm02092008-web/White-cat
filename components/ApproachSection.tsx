@@ -20,7 +20,7 @@ export default function ApproachSection({ data }: { data: AboutContent }) {
             <div className="relative">
               <div className="relative aspect-[4/4.3] w-full overflow-hidden rounded-[32px] bg-mist">
                 <Image
-                  src={asset(data.imageSrc)}
+                  src={asset("/clinic-interior.jpg")}
                   alt={data.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 46vw"
