@@ -9,9 +9,6 @@ import { Eyebrow } from "@/components/ui/Typography";
 import { getClinicContent } from "@/lib/clinic";
 import { doctors, getDoctor } from "@/lib/doctors";
 
-/* Требование проекта: карточки врачей отдаются готовым HTML на этапе сборки. */
-export const ensureStatic = "navigation";
-
 export function generateStaticParams() {
   return doctors.map((doctor) => ({ slug: doctor.slug }));
 }
