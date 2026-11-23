@@ -1,12 +1,18 @@
 import type { NextConfig } from "next";
 
+// На GitHub Pages сайт лежит в подпапке /<repo>, локально — в корне.
+// Переменная окружения GITHUB_PAGES=true включает префикс (её ставит workflow).
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const repoName = "/White-cat"; // ← замени на имя своего репозитория
+
 const nextConfig: NextConfig = {
-  output: 'export',
-  basePath: '/White-cat',      // Название вашего репозитория
-  assetPrefix: '/White-cat/',  // Название вашего репозитория
+  output: "export",
+  ...(isGitHubPages
+    ? { basePath: repoName, assetPrefix: `${repoName}/` }
+    : {}),
 
   images: {
-    unoptimized: true,         // Обязательно для GitHub Pages
+    unoptimized: true, // Обязательно для GitHub Pages
     remotePatterns: [
       {
         protocol: "https",

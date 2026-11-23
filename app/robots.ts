@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
-export const dynamic = "force-static"; // <-- ДОБАВИТЬ ЭТУ СТРОКУ
+// Обязательно для output: "export" (GitHub Pages)
+export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {

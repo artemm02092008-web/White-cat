@@ -3,15 +3,21 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main # или master, в зависимости от того, как называется твоя основная ветка
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Не запускать два деплоя одновременно
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
@@ -28,15 +34,31 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+
+      # GitHub Pages не отдаёт папки, начинающиеся с "_" (например /_next).
+      # Пустой файл .nojekyll отключает обработку Jekyll.
+      - name: Disable Jekyll
+        run: touch ./out/.nojekyll
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out # Указываем папку, которую создаёт next.js при output: 'export'
+          path: ./out
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
