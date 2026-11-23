@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, MapPin, ShieldCheck, Star } from "lucide-react";
 import { getClinicContent } from "@/lib/clinic";
+import { asset } from "@/lib/asset";
 import Container from "@/components/ui/Container";
 import CtaButton from "@/components/ui/CtaButton";
 import Reveal from "@/components/ui/Reveal";
@@ -64,7 +65,7 @@ export default function Hero() {
               <div className="absolute inset-0 -rotate-2 rounded-[36px] bg-sage" aria-hidden="true" />
               <div className="relative h-full w-full overflow-hidden rounded-[32px] bg-sage shadow-[0_30px_60px_-30px_rgba(29,59,46,0.35)]">
                 <Image
-                  src={hero.imageSrc}
+                  src={asset(hero.imageSrc)}
                   alt={hero.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 45vw"

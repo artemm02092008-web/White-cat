@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import type { ClinicContent } from "@/lib/clinic";
+import { asset } from "@/lib/asset";
 import Container from "@/components/ui/Container";
 import CtaButton from "@/components/ui/CtaButton";
 import Reveal from "@/components/ui/Reveal";
@@ -19,7 +20,7 @@ export default function ApproachSection({ data }: { data: AboutContent }) {
             <div className="relative">
               <div className="relative aspect-[4/4.3] w-full overflow-hidden rounded-[32px] bg-mist">
                 <Image
-                  src={data.imageSrc}
+                  src={asset(data.imageSrc)}
                   alt={data.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 46vw"

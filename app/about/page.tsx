@@ -7,6 +7,7 @@ import CtaButton from "@/components/ui/CtaButton";
 import Reveal from "@/components/ui/Reveal";
 import { directionCards } from "@/lib/services";
 import { getClinicContent } from "@/lib/clinic";
+import { asset } from "@/lib/asset";
 import { Eyebrow, SectionHeading } from "@/components/ui/Typography";
 
 export const metadata = {
@@ -55,7 +56,7 @@ export default function AboutPage() {
             <Reveal y={28}>
               <div className="relative aspect-[4/3.4] w-full overflow-hidden rounded-[32px] bg-mist">
                 <Image
-                  src={about.imageSrc}
+                  src={asset(about.imageSrc)}
                   alt={about.imageAlt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 48vw"
