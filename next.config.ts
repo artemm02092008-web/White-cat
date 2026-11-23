@@ -2,14 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/White-cat',      // <- заменили на White-cat
-  assetPrefix: '/White-cat/',  // <- заменили на White-cat
+  basePath: '/White-cat',      // Название вашего репозитория
+  assetPrefix: '/White-cat/',  // Название вашего репозитория
 
-  cacheComponents: true,
-  partialPrefetching: true,
-  
   images: {
-    unoptimized: true,
+    unoptimized: true,         // Обязательно для GitHub Pages
     remotePatterns: [
       {
         protocol: "https",
