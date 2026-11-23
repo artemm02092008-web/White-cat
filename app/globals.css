@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Дизайн-токены. Сложная палитра вместо двух «стандартных» цветов:
+   глубокий зелёный для премиальности, тёплый песочный как вторичный
+   акцент, графит для текста и мягкие тона для поверхностей.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Поверхности */
+  --color-canvas: #ffffff;
+  --color-mist: #f7f8f5; /* очень светлая «воздушная» подложка */
+  --color-sage: #eef2e6; /* светло-зелёная, для плашек и иконок */
+
+  /* Чернила (текст) */
+  --color-ink: #14181a;
+  --color-ink-soft: #5a6165;
+  --color-ink-muted: #8c9498;
+
+  /* Акценты */
+  --color-accent: #75c043;
+  --color-accent-strong: #5fa432;
+  --color-accent-deep: #1d3b2e; /* глубокий зелёный, футер/контраст */
+  --color-accent-deep-2: #24493a;
+  --color-sand: #e8dcc7; /* тёплый песочный, второй акцент */
+  --color-star: #f2b24a;
+
+  /* Линии */
+  --color-line: #e7e8e3;
+  --color-line-strong: #d5d8d0;
+
+  /* Тени — слоистые, «дорогие», а не просто box-shadow по умолчанию */
+  --shadow-soft: 0 1px 2px rgba(20, 24, 26, 0.04),
+    0 8px 24px -12px rgba(20, 24, 26, 0.12);
+  --shadow-lift: 0 2px 4px rgba(20, 24, 26, 0.04),
+    0 18px 40px -18px rgba(20, 24, 26, 0.18);
+
+  /* Радиусы */
+  --radius-card: 24px;
+  --radius-panel: 32px;
+
+  /* Анимации */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --bg-sage: #eef2e6;
-  --accent-green: #75c043;
-  --text-dark: #1a1a1a;
-  --text-gray: #5a5a5a;
+  --font-body: var(--font-golos);
+  --font-heading: var(--font-golos);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-inter);
+  font-family: var(--font-golos), system-ui, sans-serif;
+  letter-spacing: -0.006em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-manrope);
+  font-family: var(--font-golos), system-ui, sans-serif;
+  letter-spacing: -0.03em;
 }
 
-/* Разделительные линии между блоками сайта */
+/* Скрываем скроллбар в горизонтальных лентах, но оставляем скролл */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Тонкий разделитель между секциями вместо жирной чёрной линии */
 .section-divider {
   width: 100%;
   height: 1px;
-  background-color: rgb(0 0 0 / 0.18);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-line) 18%,
+    var(--color-line) 82%,
+    transparent
+  );
+}
+
+/* Плавное появление блоков при скролле, если JS недоступен */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

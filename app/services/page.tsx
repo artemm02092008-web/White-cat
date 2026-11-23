@@ -1,106 +1,141 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import Footer from "@/components/Footer";
+import Container from "@/components/ui/Container";
+import CtaButton from "@/components/ui/CtaButton";
+import Reveal from "@/components/ui/Reveal";
+import { Eyebrow, SectionHeading } from "@/components/ui/Typography";
+import { serviceGroups } from "@/lib/services";
+import { getClinicContent } from "@/lib/clinic";
 
 export const metadata = {
-  title: "Услуги и цены — Ветеринарная клиника «Белый кот»",
-  description: "Полный список ветеринарных услуг и цены в клинике «Белый кот» в Электростали.",
+  title: "Услуги и цены",
+  description:
+    "Полный список ветеринарных услуг и цены в клинике «Белый кот» в Электростали: терапия, диагностика, хирургия, стоматология.",
 };
 
-// Данные об услугах и ценах
-const servicesData = [
-  {
-    category: "Терапия и консультации",
-    items: [
-      {
-        name: "Аллергология, терапия атопического дерматита",
-        price: "от 1100 руб.",
-      },
-      {
-        name: "Инъекции (подкожные, внутримышечные, внутривенные)",
-        price: "от 80 руб.",
-      },
-    ],
-  },
-  {
-    category: "Диагностика",
-    items: [
-      { name: "УЗИ глаза", price: "от 600 руб." },
-      { name: "УЗИ одного органа", price: "от 500 руб." },
-      { name: "ЭКГ кошек и собак", price: "от 550 руб." },
-      {
-        name: "Любые прочие лабораторные исследования ежедневно отправляются в стороннюю лабораторию, срок готовности от 24 часов",
-        price: "от 100 руб.",
-      },
-    ],
-  },
-  {
-    category: "Хирургия и стоматология",
-    items: [
-      {
-        name: "Удаление новообразований молочных желез (мастэктомия), локальная, регионарная, унилатеральная",
-        price: "от 1000 руб.",
-      },
-      {
-        name: "Экстракция (удаление) зубов любой степени сложности",
-        price: "от 500 руб.",
-      },
-    ],
-  },
-];
-
 export default function ServicesPage() {
+  const { clinic } = getClinicContent();
+
   return (
-    <main className="flex min-h-screen flex-col bg-white">
-      {/* Хедер */}
+    <main className="flex min-h-screen flex-col bg-canvas">
       <SiteHeader />
 
-      {/* Сетка с услугами */}
-      <section className="mx-auto w-full max-w-[1200px] px-6 py-16 lg:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-          {servicesData.map((group) => (
-            <div key={group.category} className="flex flex-col gap-4">
-              <h2 className="text-2xl font-bold text-[#1A1A1A] border-b border-gray-200 pb-3">
-                {group.category}
-              </h2>
-              <ul className="flex flex-col gap-4">
-                {group.items.map((item) => (
-                  <li key={item.name} className="flex justify-between items-baseline gap-4 text-[15px]">
-                    <span className="text-[#5A5A5A]">{item.name}</span>
-                    <span className="w-full border-b border-dotted border-gray-300 relative -top-1"></span>
-                    <span className="font-semibold text-[#1A1A1A] whitespace-nowrap">{item.price}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Заголовок страницы */}
+      <section className="relative overflow-hidden bg-canvas pb-12 pt-14 lg:pt-20">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full bg-sage/60 blur-[110px]"
+        />
+        <Container className="relative flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-[560px]">
+            <Reveal>
+              <Eyebrow>Услуги и цены</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <SectionHeading as="h1" className="mt-5">
+                Полный список направлений
+              </SectionHeading>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-5 text-[15.5px] leading-[1.7] text-ink-soft">
+                Приём ведут врачи разных профилей, диагностика проходит на месте.
+                Точную стоимость конкретной процедуры уточните у администратора.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.15}>
+            <div className="rounded-2xl border border-line bg-mist/60 px-6 py-5">
+              <p className="text-[12px] uppercase tracking-[0.12em] text-ink-muted">
+                Записаться по телефону
+              </p>
+              <a
+                href={clinic.phoneHref}
+                className="mt-1.5 inline-flex items-center gap-2 text-[20px] font-semibold text-ink transition-colors hover:text-accent-strong"
+              >
+                <Phone className="h-4 w-4 text-accent-strong" strokeWidth={2} aria-hidden="true" />
+                {clinic.phone}
+              </a>
             </div>
-          ))}
-        </div>
+          </Reveal>
+        </Container>
       </section>
 
-      {/* Дисклеймер */}
-      <p className="mx-auto -mt-8 mb-16 max-w-[1200px] px-6 text-[12px] leading-[1.6] text-[#8A8E8C] lg:px-0">
-        Цены, приведённые на сайте, не окончательные, не являются публичной офертой и носят информационный характер.
-      </p>
+      {/* Список услуг */}
+      <section className="pb-8">
+        <Container>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
+            {serviceGroups.map((group, i) => {
+              const Icon = group.icon;
+              return (
+                <Reveal key={group.id} delay={i * 0.08} as="article" className="h-full">
+                  <div className="flex h-full flex-col rounded-[26px] border border-line bg-white p-7 lg:p-8">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sage text-accent-deep">
+                      <Icon className="h-6 w-6" strokeWidth={1.7} aria-hidden="true" />
+                    </span>
+                    <h2 className="mt-6 text-[19px] font-semibold text-ink">{group.title}</h2>
+                    <p className="mt-2 text-[14px] leading-[1.6] text-ink-soft">{group.summary}</p>
 
-      {/* Блок призыва к действию (CTA) внизу */}
-      <section className="w-full bg-[#EEF2E6] py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold text-[#1A1A1A] mb-4">Не нашли нужную услугу?</h2>
-        <p className="text-[#5A5A5A] mb-8">Позвоните нам, и мы подскажем, к какому специалисту обратиться.</p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="tel:+79257222580"
-            className="inline-flex items-center justify-center rounded-lg bg-[#75C043] px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-[#65a83a]"
-          >
-            Позвонить: +7 (925) 722-25-80
-          </a>
-          <Link
-            href="/#booking"
-            className="inline-flex items-center justify-center rounded-lg border border-[#75C043] text-[#75C043] px-8 py-4 text-sm font-semibold hover:bg-[#75C043] hover:text-white transition-all"
-          >
-            Записаться онлайн
-          </Link>
-        </div>
+                    <ul className="mt-6 flex flex-1 flex-col gap-4 border-t border-line pt-6">
+                      {group.items.map((item) => (
+                        <li
+                          key={item.name}
+                          className="flex items-start justify-between gap-4 text-[14px] leading-snug"
+                        >
+                          <span className="text-ink-soft">{item.name}</span>
+                          <span className="shrink-0 font-semibold tabular-nums text-ink">
+                            {item.price}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      <Container>
+        <p className="mt-8 max-w-[820px] text-[12.5px] leading-[1.7] text-ink-muted">
+          Цены, приведённые на сайте, не окончательные, не являются публичной
+          офертой и носят информационный характер.
+        </p>
+      </Container>
+
+      {/* CTA */}
+      <section className="mt-16 bg-mist/50 py-16 lg:py-20">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-[640px] text-center">
+              <h2 className="text-[clamp(1.7rem,3.6vw,2.4rem)] font-semibold leading-tight tracking-[-0.03em] text-ink">
+                Не нашли нужную услугу?
+              </h2>
+              <p className="mx-auto mt-4 max-w-[480px] text-[15px] leading-[1.7] text-ink-soft">
+                Позвоните нам — подскажем, к какому специалисту обратиться и как
+                подготовить питомца к приёму.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <CtaButton href={clinic.phoneHref} variant="primary" size="lg" withArrow>
+                  {clinic.phone}
+                </CtaButton>
+                <CtaButton href="/booking" variant="outline" size="lg">
+                  Записаться онлайн
+                </CtaButton>
+              </div>
+              <Link
+                href="/#faq"
+                className="mt-6 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-ink transition-colors hover:text-accent-strong"
+              >
+                Частые вопросы
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
+        </Container>
       </section>
 
       <Footer />

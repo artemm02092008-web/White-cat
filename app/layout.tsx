@@ -1,32 +1,48 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Golos_Text } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const golos = Golos_Text({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
-});
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-manrope",
+  display: "swap",
+  variable: "--font-golos",
 });
 
 export const metadata: Metadata = {
-  title: "Белый Кот | Ветеринарная клиника",
+  metadataBase: new URL("https://belyi-kot.ru"),
+  title: {
+    default: "Белый кот — ветеринарная клиника в Электростали",
+    template: "%s — Белый кот",
+  },
   description:
-    "Забота о здоровье ваших питомцев — от первого осмотра до сложного лечения.",
+    "Ветеринарная клиника «Белый кот» в Электростали: врачи разных профилей, диагностика (УЗИ, ЭКГ, рентген), хирургия, стоматология, груминг. Ежедневно 10:00–21:00.",
+  keywords: [
+    "ветеринарная клиника Электросталь",
+    "ветеринар Электросталь",
+    "клиника Белый кот",
+    "УЗИ животных",
+    "груминг Электросталь",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: "Ветеринарная клиника «Белый кот»",
+    title: "Белый кот — ветеринарная клиника в Электростали",
+    description:
+      "Заботимся о здоровье питомцев — от первого осмотра до сложного лечения. Ежедневно, без выходных.",
+  },
+  robots: { index: true, follow: true },
 };
+
+/* Требование проекта: весь сайт должен быть статическим (SSG). */
+export const ensureStatic = "navigation";
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ru">
-      <body
-        className={`${inter.variable} ${manrope.variable} antialiased bg-white text-[#1A1A1A]`}
-      >
-        {children}
-      </body>
+    <html lang="ru" className={golos.variable}>
+      <body className="bg-canvas text-ink antialiased">{children}</body>
     </html>
   );
 }
