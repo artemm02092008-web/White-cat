@@ -34,9 +34,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-/* Требование проекта: весь сайт должен быть статическим (SSG). */
-export const ensureStatic = "navigation";
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
